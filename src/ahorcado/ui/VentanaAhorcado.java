@@ -123,12 +123,8 @@ public class VentanaAhorcado extends JFrame {
 
     // Muestra el estado actual de la partida al abrir la ventana.
     private void actualizarEstadoInicial() {
-        etiquetaProgreso.setText(juego.obtenerProgreso());
-        etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
-        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
-        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
+        actualizarVistaJuego();
         etiquetaMensaje.setText("Escribe una letra y presiona el boton.");
-        panelAhorcado.setErroresActuales(juego.getErroresActuales());
     }
 
     // Conecta el boton y la tecla Enter con el intento de letra.
@@ -168,19 +164,8 @@ public class VentanaAhorcado extends JFrame {
 
     // Refresca la ventana despues de cada intento realizado.
     private void actualizarEstadoPartida(String resultado, char letra) {
-        etiquetaProgreso.setText(juego.obtenerProgreso());
-        etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
-        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
-        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
-        panelAhorcado.setErroresActuales(juego.getErroresActuales());
-
-        if (resultado.equals("correcta")) {
-            etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
-        } else if (resultado.equals("incorrecta")) {
-            etiquetaMensaje.setText("La letra " + letra + " no esta en la palabra.");
-        } else {
-            etiquetaMensaje.setText("La letra " + letra + " ya fue usada.");
-        }
+        actualizarVistaJuego();
+        mostrarResultadoIntento(resultado, letra);
     }
 
     // Muestra la categoria y desactiva esa pista para evitar repetirla.
@@ -205,8 +190,7 @@ public class VentanaAhorcado extends JFrame {
         if (letraRevelada == '\0') {
             etiquetaMensaje.setText("No hay mas letras ocultas para revelar.");
         } else {
-            etiquetaProgreso.setText(juego.obtenerProgreso());
-            etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
+            actualizarVistaJuego();
             etiquetaMensaje.setText("Se revelo la letra: " + letraRevelada);
         }
 
@@ -228,6 +212,26 @@ public class VentanaAhorcado extends JFrame {
     // Muestra mensajes simples de validacion para el usuario.
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    // Actualiza en bloque los elementos visuales ligados al estado del juego.
+    private void actualizarVistaJuego() {
+        etiquetaProgreso.setText(juego.obtenerProgreso());
+        etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
+        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
+        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
+        panelAhorcado.setErroresActuales(juego.getErroresActuales());
+    }
+
+    // Muestra un mensaje corto segun el tipo de intento realizado.
+    private void mostrarResultadoIntento(String resultado, char letra) {
+        if (resultado.equals("correcta")) {
+            etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
+        } else if (resultado.equals("incorrecta")) {
+            etiquetaMensaje.setText("La letra " + letra + " no esta en la palabra.");
+        } else {
+            etiquetaMensaje.setText("La letra " + letra + " ya fue usada.");
+        }
     }
 
     // Verifica si la partida termino y bloquea la interfaz si corresponde.

@@ -7,19 +7,21 @@ import java.util.Random;
 // Controla el estado basico de una partida sin depender de Swing.
 public class JuegoAhorcado {
 
-    private Palabra palabraSecreta;
+    private static final int ERRORES_MAXIMOS = 7;
+
+    private final Palabra palabraSecreta;
     private int erroresActuales;
-    private int erroresMaximos;
-    private ArrayList<Character> letrasUsadas;
-    private ArrayList<Character> letrasCorrectas;
-    private ArrayList<Character> letrasIncorrectas;
-    private Random random;
+    private final int erroresMaximos;
+    private final ArrayList<Character> letrasUsadas;
+    private final ArrayList<Character> letrasCorrectas;
+    private final ArrayList<Character> letrasIncorrectas;
+    private final Random random;
 
     // Inicia una partida con una palabra y cero errores.
     public JuegoAhorcado(Palabra palabraSecreta) {
         this.palabraSecreta = palabraSecreta;
         this.erroresActuales = 0;
-        this.erroresMaximos = 7;
+        this.erroresMaximos = ERRORES_MAXIMOS;
         this.letrasUsadas = new ArrayList<>();
         this.letrasCorrectas = new ArrayList<>();
         this.letrasIncorrectas = new ArrayList<>();
