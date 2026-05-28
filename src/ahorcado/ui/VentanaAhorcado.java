@@ -82,7 +82,7 @@ public class VentanaAhorcado extends JFrame {
         etiquetaLetrasIncorrectas = new JLabel("", SwingConstants.CENTER);
         panelInfo.add(etiquetaLetrasIncorrectas, BorderLayout.CENTER);
 
-        etiquetaMensaje = new JLabel("La conexion del intento se hara en la siguiente fase.", SwingConstants.CENTER);
+        etiquetaMensaje = new JLabel("Escribe una letra para comenzar.", SwingConstants.CENTER);
         panelInfo.add(etiquetaMensaje, BorderLayout.SOUTH);
 
         panelEstado.add(panelInfo, BorderLayout.SOUTH);

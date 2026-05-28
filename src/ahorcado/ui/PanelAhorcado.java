@@ -31,35 +31,37 @@ public class PanelAhorcado extends JPanel {
         dibujo.setStroke(new BasicStroke(3));
         dibujo.setColor(Color.BLACK);
 
+        // La estructura base siempre se muestra desde el inicio.
+        dibujo.drawLine(20, 220, 130, 220);
+        dibujo.drawLine(45, 220, 45, 30);
+        dibujo.drawLine(45, 30, 120, 30);
+
         if (erroresActuales >= 1) {
-            dibujo.drawLine(20, 220, 130, 220);
-        }
-
-        if (erroresActuales >= 2) {
-            dibujo.drawLine(45, 220, 45, 30);
-        }
-
-        if (erroresActuales >= 3) {
-            dibujo.drawLine(45, 30, 120, 30);
-        }
-
-        if (erroresActuales >= 4) {
-            dibujo.drawLine(120, 30, 120, 55);
-        }
-
-        if (erroresActuales >= 5) {
             dibujo.drawOval(100, 55, 40, 40);
         }
 
-        if (erroresActuales >= 6) {
+        if (erroresActuales >= 2) {
             dibujo.drawLine(120, 95, 120, 145);
-            dibujo.drawLine(120, 105, 95, 125);
+        }
+
+        if (erroresActuales >= 3) {
             dibujo.drawLine(120, 105, 145, 125);
         }
 
-        if (erroresActuales >= 7) {
-            dibujo.drawLine(120, 145, 100, 190);
+        if (erroresActuales >= 4) {
+            dibujo.drawLine(120, 105, 95, 125);
+        }
+
+        if (erroresActuales >= 5) {
             dibujo.drawLine(120, 145, 140, 190);
+        }
+
+        if (erroresActuales >= 6) {
+            dibujo.drawLine(120, 145, 100, 190);
+        }
+
+        if (erroresActuales >= 7) {
+            dibujo.drawLine(120, 30, 120, 55);
         }
     }
 }
