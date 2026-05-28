@@ -24,6 +24,7 @@ public class VentanaAhorcado extends JFrame {
     private JLabel etiquetaLetrasUsadas;
     private JLabel etiquetaLetrasIncorrectas;
     private JLabel etiquetaMensaje;
+    private PanelAhorcado panelAhorcado;
     private JTextField campoLetra;
     private JButton botonIntentar;
 
@@ -32,9 +33,9 @@ public class VentanaAhorcado extends JFrame {
 
         setTitle("Juego del Ahorcado");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(480, 320);
+        setSize(560, 420);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(420, 280));
+        setMinimumSize(new Dimension(520, 380));
 
         crearComponentes();
         actualizarEstadoInicial();
@@ -50,16 +51,22 @@ public class VentanaAhorcado extends JFrame {
         add(titulo, BorderLayout.NORTH);
 
         JPanel panelCentral = new JPanel();
-        panelCentral.setLayout(new BorderLayout(8, 8));
+        panelCentral.setLayout(new BorderLayout(12, 12));
         panelCentral.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
+
+        panelAhorcado = new PanelAhorcado();
+        panelCentral.add(panelAhorcado, BorderLayout.WEST);
+
+        JPanel panelEstado = new JPanel();
+        panelEstado.setLayout(new BorderLayout(8, 8));
 
         etiquetaProgreso = new JLabel("", SwingConstants.CENTER);
         etiquetaProgreso.setFont(new Font("Monospaced", Font.BOLD, 28));
-        panelCentral.add(etiquetaProgreso, BorderLayout.NORTH);
+        panelEstado.add(etiquetaProgreso, BorderLayout.NORTH);
 
         etiquetaErrores = new JLabel("", SwingConstants.CENTER);
         etiquetaErrores.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        panelCentral.add(etiquetaErrores, BorderLayout.CENTER);
+        panelEstado.add(etiquetaErrores, BorderLayout.CENTER);
 
         JPanel panelInfo = new JPanel();
         panelInfo.setLayout(new BorderLayout(4, 4));
@@ -73,7 +80,8 @@ public class VentanaAhorcado extends JFrame {
         etiquetaMensaje = new JLabel("La conexion del intento se hara en la siguiente fase.", SwingConstants.CENTER);
         panelInfo.add(etiquetaMensaje, BorderLayout.SOUTH);
 
-        panelCentral.add(panelInfo, BorderLayout.SOUTH);
+        panelEstado.add(panelInfo, BorderLayout.SOUTH);
+        panelCentral.add(panelEstado, BorderLayout.CENTER);
 
         add(panelCentral, BorderLayout.CENTER);
 
@@ -97,6 +105,7 @@ public class VentanaAhorcado extends JFrame {
         etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
         etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
         etiquetaMensaje.setText("Escribe una letra y presiona el boton.");
+        panelAhorcado.setErroresActuales(juego.getErroresActuales());
     }
 
     // Conecta el boton y la tecla Enter con el intento de letra.
@@ -132,6 +141,7 @@ public class VentanaAhorcado extends JFrame {
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
         etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
         etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
+        panelAhorcado.setErroresActuales(juego.getErroresActuales());
 
         if (resultado.equals("correcta")) {
             etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");

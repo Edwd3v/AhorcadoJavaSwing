@@ -23,7 +23,7 @@
 | 9 | Crear interfaz Swing minima. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Abrir ventana basica. |
 | 10 | Conectar intento de letra en la interfaz. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Ver que el progreso cambie al ingresar letras. |
 | 11 | Mostrar letras usadas y errores en Swing. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Confirmar que la interfaz refleja el estado de la partida. |
-| 12 | Mostrar avance grafico del ahorcado. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Confirmar que el dibujo cambia con cada error. |
+| 12 | Mostrar avance grafico del ahorcado. | completada | `src/ahorcado/ui/PanelAhorcado.java`, `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Confirmar que el dibujo cambia con cada error. |
 | 13 | Agregar botones de pistas en Swing. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Validar categoria, letra revelada y pista escrita. |
 | 14 | Controlar fin de partida en Swing. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Confirmar victoria, derrota y bloqueo de nuevos intentos. |
 | 15 | Revisar claridad del codigo. | pendiente | Clases creadas o modificadas | Revision manual y compilacion. |
