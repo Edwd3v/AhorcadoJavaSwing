@@ -20,7 +20,7 @@
 | 6 | Detectar victoria y derrota. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Probar partida ganada y partida perdida con 7 errores. |
 | 7 | Agregar pistas: categoria, letra aleatoria oculta y pista escrita. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Validar las tres pistas por consola. |
 | 8 | Ampliar banco a minimo 5 categorias, sin llegar todavia a 200 palabras. | completada | `src/ahorcado/modelo/BancoPalabras.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Revisar categorias y probar seleccion. |
-| 9 | Crear interfaz Swing minima. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java`, `src/ahorcado/app/Main.java` | Abrir ventana basica. |
+| 9 | Crear interfaz Swing minima. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Abrir ventana basica. |
 | 10 | Conectar intento de letra en la interfaz. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Ver que el progreso cambie al ingresar letras. |
 | 11 | Mostrar letras usadas y errores en Swing. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Confirmar que la interfaz refleja el estado de la partida. |
 | 12 | Mostrar avance grafico del ahorcado. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Confirmar que el dibujo cambia con cada error. |
