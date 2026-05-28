@@ -17,6 +17,7 @@ public class Main {
 
         // Mostrar el estado inicial de la partida.
         System.out.println("Palabra seleccionada: " + juego.getPalabraSecreta().getTexto());
+        System.out.println("Progreso: " + juego.obtenerProgreso());
         System.out.println("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
 
     }

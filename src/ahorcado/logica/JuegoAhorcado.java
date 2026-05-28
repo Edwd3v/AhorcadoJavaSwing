@@ -27,4 +27,20 @@ public class JuegoAhorcado {
     public int getErroresMaximos() {
         return erroresMaximos;
     }
+
+    // Muestra la palabra oculta con un guion por cada letra.
+    public String obtenerProgreso() {
+        StringBuilder progreso = new StringBuilder();
+        String texto = palabraSecreta.getTexto();
+
+        for (int posicion = 0; posicion < texto.length(); posicion++) {
+            if (posicion > 0) {
+                progreso.append(" ");
+            }
+
+            progreso.append("_");
+        }
+
+        return progreso.toString();
+    }
 }
