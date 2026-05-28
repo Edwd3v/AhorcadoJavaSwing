@@ -1,11 +1,18 @@
 package ahorcado.app;
 
 import ahorcado.logica.JuegoAhorcado;
+import ahorcado.modelo.BancoPalabras;
 import ahorcado.modelo.Palabra;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        // Probar que el banco ampliado sigue entregando palabras aleatorias.
+        BancoPalabras bancoPalabras = new BancoPalabras();
+        Palabra palabraAleatoria = bancoPalabras.obtenerPalabraAleatoria();
+        System.out.println("Palabra del banco: " + palabraAleatoria.getTexto());
+        System.out.println("Categoria del banco: " + palabraAleatoria.getCategoria());
 
         // Palabra fija para probar intentos de forma clara.
         Palabra palabraPrueba = new Palabra("perro", "Animales", "Es una mascota comun");
