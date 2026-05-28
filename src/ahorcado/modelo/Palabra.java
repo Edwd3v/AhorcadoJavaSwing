@@ -2,9 +2,9 @@ package ahorcado.modelo;
 
 // Atributos: datos que guarda cada palabra del juego
 public class Palabra {
-    String texto;
-    String categoria;
-    String pista;
+    private String texto;
+    private String categoria;
+    private String pista;
 
     // Constructor: crea una palabra con texto, categoría y pista
     public Palabra(String texto, String categoria, String pista){
