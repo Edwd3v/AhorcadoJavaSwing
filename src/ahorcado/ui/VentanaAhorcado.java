@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,15 +28,18 @@ public class VentanaAhorcado extends JFrame {
     private PanelAhorcado panelAhorcado;
     private JTextField campoLetra;
     private JButton botonIntentar;
+    private JButton botonPistaCategoria;
+    private JButton botonPistaLetra;
+    private JButton botonPistaDescripcion;
 
     public VentanaAhorcado(JuegoAhorcado juego) {
         this.juego = juego;
 
         setTitle("Juego del Ahorcado");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(560, 420);
+        setSize(580, 500);
         setLocationRelativeTo(null);
-        setMinimumSize(new Dimension(520, 380));
+        setMinimumSize(new Dimension(540, 460));
 
         crearComponentes();
         actualizarEstadoInicial();
@@ -85,13 +89,31 @@ public class VentanaAhorcado extends JFrame {
 
         add(panelCentral, BorderLayout.CENTER);
 
-        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 12));
+        JPanel panelInferior = new JPanel(new BorderLayout(8, 8));
+        panelInferior.setBorder(BorderFactory.createEmptyBorder(0, 16, 12, 16));
+
+        JPanel panelIntento = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 6));
 
         campoLetra = new JTextField(5);
-        panelInferior.add(campoLetra);
+        panelIntento.add(campoLetra);
 
         botonIntentar = new JButton("Intentar letra");
-        panelInferior.add(botonIntentar);
+        panelIntento.add(botonIntentar);
+
+        panelInferior.add(panelIntento, BorderLayout.NORTH);
+
+        JPanel panelPistas = new JPanel(new GridLayout(1, 3, 8, 0));
+
+        botonPistaCategoria = new JButton("Pista categoria");
+        panelPistas.add(botonPistaCategoria);
+
+        botonPistaLetra = new JButton("Pista letra");
+        panelPistas.add(botonPistaLetra);
+
+        botonPistaDescripcion = new JButton("Pista descripcion");
+        panelPistas.add(botonPistaDescripcion);
+
+        panelInferior.add(panelPistas, BorderLayout.SOUTH);
 
         add(panelInferior, BorderLayout.SOUTH);
 
@@ -113,6 +135,9 @@ public class VentanaAhorcado extends JFrame {
         ActionListener accionIntentar = evento -> procesarIntento();
         botonIntentar.addActionListener(accionIntentar);
         campoLetra.addActionListener(accionIntentar);
+        botonPistaCategoria.addActionListener(evento -> usarPistaCategoria());
+        botonPistaLetra.addActionListener(evento -> usarPistaLetra());
+        botonPistaDescripcion.addActionListener(evento -> usarPistaDescripcion());
     }
 
     // Toma una letra de la interfaz y la envia a la logica del juego.
@@ -150,6 +175,35 @@ public class VentanaAhorcado extends JFrame {
         } else {
             etiquetaMensaje.setText("La letra " + letra + " ya fue usada.");
         }
+    }
+
+    // Muestra la categoria y desactiva esa pista para evitar repetirla.
+    private void usarPistaCategoria() {
+        String categoria = juego.usarPistaCategoria();
+        etiquetaMensaje.setText("Categoria: " + categoria);
+        botonPistaCategoria.setEnabled(false);
+    }
+
+    // Revela una letra oculta y refresca la interfaz.
+    private void usarPistaLetra() {
+        char letraRevelada = juego.usarPistaLetra();
+
+        if (letraRevelada == '\0') {
+            etiquetaMensaje.setText("No hay mas letras ocultas para revelar.");
+        } else {
+            etiquetaProgreso.setText(juego.obtenerProgreso());
+            etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
+            etiquetaMensaje.setText("Se revelo la letra: " + letraRevelada);
+        }
+
+        botonPistaLetra.setEnabled(false);
+    }
+
+    // Muestra la descripcion de la palabra y desactiva esa pista.
+    private void usarPistaDescripcion() {
+        String descripcion = juego.usarPistaDescripcion();
+        etiquetaMensaje.setText("Pista: " + descripcion);
+        botonPistaDescripcion.setEnabled(false);
     }
 
     // Muestra mensajes simples de validacion para el usuario.

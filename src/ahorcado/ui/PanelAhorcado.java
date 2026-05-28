@@ -13,7 +13,8 @@ public class PanelAhorcado extends JPanel {
     private int erroresActuales;
 
     public PanelAhorcado() {
-        setPreferredSize(new Dimension(190, 260));
+        setPreferredSize(new Dimension(200, 300));
+        setMinimumSize(new Dimension(200, 300));
         setBackground(Color.WHITE);
     }
 
