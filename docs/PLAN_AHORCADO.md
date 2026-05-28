@@ -27,4 +27,4 @@
 | 13 | Agregar botones de pistas en Swing. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Validar categoria, letra revelada y pista escrita. |
 | 14 | Controlar fin de partida en Swing. | completada | `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Confirmar victoria, derrota y bloqueo de nuevos intentos. |
 | 15 | Revisar claridad del codigo. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/ui/VentanaAhorcado.java`, `docs/PLAN_AHORCADO.md` | Revision manual y compilacion. |
-| 16 | Preparar documentacion base. | pendiente | `docs/` y posible archivo de documentacion futuro | Revisar instrucciones de ejecucion y explicacion del proyecto. |
+| 16 | Preparar documentacion base. | completada | `docs/DOCUMENTACION_BASE.md`, `docs/PLAN_AHORCADO.md` | Revisar instrucciones de ejecucion y explicacion del proyecto. |
