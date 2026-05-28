@@ -88,4 +88,24 @@ public class JuegoAhorcado {
         erroresActuales++;
         return "incorrecta";
     }
+
+    // Verifica si todas las letras de la palabra fueron descubiertas.
+    public boolean haGanado() {
+        String texto = palabraSecreta.getTexto();
+
+        for (int posicion = 0; posicion < texto.length(); posicion++) {
+            char letraActual = texto.charAt(posicion);
+
+            if (!letrasCorrectas.contains(letraActual)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Verifica si se alcanzo el limite de errores permitidos.
+    public boolean haPerdido() {
+        return erroresActuales >= erroresMaximos;
+    }
 }
