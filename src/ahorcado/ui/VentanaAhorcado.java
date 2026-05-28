@@ -5,10 +5,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -65,19 +67,66 @@ public class VentanaAhorcado extends JFrame {
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 12));
 
         campoLetra = new JTextField(5);
-        campoLetra.setEnabled(false);
         panelInferior.add(campoLetra);
 
         botonIntentar = new JButton("Intentar letra");
-        botonIntentar.setEnabled(false);
         panelInferior.add(botonIntentar);
 
         add(panelInferior, BorderLayout.SOUTH);
+
+        conectarEventos();
     }
 
     // Muestra el estado actual de la partida al abrir la ventana.
     private void actualizarEstadoInicial() {
         etiquetaProgreso.setText(juego.obtenerProgreso());
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
+        etiquetaMensaje.setText("Escribe una letra y presiona el boton.");
+    }
+
+    // Conecta el boton y la tecla Enter con el intento de letra.
+    private void conectarEventos() {
+        ActionListener accionIntentar = evento -> procesarIntento();
+        botonIntentar.addActionListener(accionIntentar);
+        campoLetra.addActionListener(accionIntentar);
+    }
+
+    // Toma una letra de la interfaz y la envia a la logica del juego.
+    private void procesarIntento() {
+        String textoIngresado = campoLetra.getText().trim().toLowerCase();
+
+        if (textoIngresado.length() != 1 || !Character.isLetter(textoIngresado.charAt(0))) {
+            mostrarMensaje("Ingresa solo una letra.");
+            campoLetra.setText("");
+            campoLetra.requestFocus();
+            return;
+        }
+
+        char letra = textoIngresado.charAt(0);
+        String resultado = juego.intentarLetra(letra);
+
+        actualizarEstadoPartida(resultado, letra);
+
+        campoLetra.setText("");
+        campoLetra.requestFocus();
+    }
+
+    // Refresca la ventana despues de cada intento realizado.
+    private void actualizarEstadoPartida(String resultado, char letra) {
+        etiquetaProgreso.setText(juego.obtenerProgreso());
+        etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
+
+        if (resultado.equals("correcta")) {
+            etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
+        } else if (resultado.equals("incorrecta")) {
+            etiquetaMensaje.setText("La letra " + letra + " no esta en la palabra.");
+        } else {
+            etiquetaMensaje.setText("La letra " + letra + " ya fue usada.");
+        }
+    }
+
+    // Muestra mensajes simples de validacion para el usuario.
+    private void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 }
