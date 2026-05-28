@@ -31,6 +31,7 @@ public class VentanaAhorcado extends JFrame {
     private JButton botonPistaCategoria;
     private JButton botonPistaLetra;
     private JButton botonPistaDescripcion;
+    private boolean juegoTerminado;
 
     public VentanaAhorcado(JuegoAhorcado juego) {
         this.juego = juego;
@@ -142,6 +143,10 @@ public class VentanaAhorcado extends JFrame {
 
     // Toma una letra de la interfaz y la envia a la logica del juego.
     private void procesarIntento() {
+        if (juegoTerminado) {
+            return;
+        }
+
         String textoIngresado = campoLetra.getText().trim().toLowerCase();
 
         if (textoIngresado.length() != 1 || !Character.isLetter(textoIngresado.charAt(0))) {
@@ -155,6 +160,7 @@ public class VentanaAhorcado extends JFrame {
         String resultado = juego.intentarLetra(letra);
 
         actualizarEstadoPartida(resultado, letra);
+        revisarFinDePartida();
 
         campoLetra.setText("");
         campoLetra.requestFocus();
@@ -179,6 +185,10 @@ public class VentanaAhorcado extends JFrame {
 
     // Muestra la categoria y desactiva esa pista para evitar repetirla.
     private void usarPistaCategoria() {
+        if (juegoTerminado) {
+            return;
+        }
+
         String categoria = juego.usarPistaCategoria();
         etiquetaMensaje.setText("Categoria: " + categoria);
         botonPistaCategoria.setEnabled(false);
@@ -186,6 +196,10 @@ public class VentanaAhorcado extends JFrame {
 
     // Revela una letra oculta y refresca la interfaz.
     private void usarPistaLetra() {
+        if (juegoTerminado) {
+            return;
+        }
+
         char letraRevelada = juego.usarPistaLetra();
 
         if (letraRevelada == '\0') {
@@ -197,10 +211,15 @@ public class VentanaAhorcado extends JFrame {
         }
 
         botonPistaLetra.setEnabled(false);
+        revisarFinDePartida();
     }
 
     // Muestra la descripcion de la palabra y desactiva esa pista.
     private void usarPistaDescripcion() {
+        if (juegoTerminado) {
+            return;
+        }
+
         String descripcion = juego.usarPistaDescripcion();
         etiquetaMensaje.setText("Pista: " + descripcion);
         botonPistaDescripcion.setEnabled(false);
@@ -209,6 +228,34 @@ public class VentanaAhorcado extends JFrame {
     // Muestra mensajes simples de validacion para el usuario.
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    // Verifica si la partida termino y bloquea la interfaz si corresponde.
+    private void revisarFinDePartida() {
+        if (juego.haGanado()) {
+            juegoTerminado = true;
+            etiquetaMensaje.setText("Ganaste la partida.");
+            bloquearControles();
+            mostrarMensaje("Ganaste. Descubriste la palabra.");
+            return;
+        }
+
+        if (juego.haPerdido()) {
+            juegoTerminado = true;
+            etiquetaProgreso.setText(separarLetras(juego.getPalabraSecreta().getTexto()));
+            etiquetaMensaje.setText("Perdiste la partida.");
+            bloquearControles();
+            mostrarMensaje("Perdiste. La palabra era: " + juego.getPalabraSecreta().getTexto());
+        }
+    }
+
+    // Desactiva los controles para impedir mas acciones al terminar la partida.
+    private void bloquearControles() {
+        campoLetra.setEnabled(false);
+        botonIntentar.setEnabled(false);
+        botonPistaCategoria.setEnabled(false);
+        botonPistaLetra.setEnabled(false);
+        botonPistaDescripcion.setEnabled(false);
     }
 
     // Convierte una lista de letras en un texto sencillo para la interfaz.
@@ -225,6 +272,21 @@ public class VentanaAhorcado extends JFrame {
             }
 
             texto.append(letras.get(indice));
+        }
+
+        return texto.toString();
+    }
+
+    // Separa las letras para mostrar la palabra completa con el mismo estilo del progreso.
+    private String separarLetras(String palabra) {
+        StringBuilder texto = new StringBuilder();
+
+        for (int indice = 0; indice < palabra.length(); indice++) {
+            if (indice > 0) {
+                texto.append(" ");
+            }
+
+            texto.append(palabra.charAt(indice));
         }
 
         return texto.toString();
