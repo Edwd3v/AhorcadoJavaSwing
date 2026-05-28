@@ -21,6 +21,8 @@ public class VentanaAhorcado extends JFrame {
     private JuegoAhorcado juego;
     private JLabel etiquetaProgreso;
     private JLabel etiquetaErrores;
+    private JLabel etiquetaLetrasUsadas;
+    private JLabel etiquetaLetrasIncorrectas;
     private JLabel etiquetaMensaje;
     private JTextField campoLetra;
     private JButton botonIntentar;
@@ -59,8 +61,19 @@ public class VentanaAhorcado extends JFrame {
         etiquetaErrores.setFont(new Font("SansSerif", Font.PLAIN, 16));
         panelCentral.add(etiquetaErrores, BorderLayout.CENTER);
 
+        JPanel panelInfo = new JPanel();
+        panelInfo.setLayout(new BorderLayout(4, 4));
+
+        etiquetaLetrasUsadas = new JLabel("", SwingConstants.CENTER);
+        panelInfo.add(etiquetaLetrasUsadas, BorderLayout.NORTH);
+
+        etiquetaLetrasIncorrectas = new JLabel("", SwingConstants.CENTER);
+        panelInfo.add(etiquetaLetrasIncorrectas, BorderLayout.CENTER);
+
         etiquetaMensaje = new JLabel("La conexion del intento se hara en la siguiente fase.", SwingConstants.CENTER);
-        panelCentral.add(etiquetaMensaje, BorderLayout.SOUTH);
+        panelInfo.add(etiquetaMensaje, BorderLayout.SOUTH);
+
+        panelCentral.add(panelInfo, BorderLayout.SOUTH);
 
         add(panelCentral, BorderLayout.CENTER);
 
@@ -81,6 +94,8 @@ public class VentanaAhorcado extends JFrame {
     private void actualizarEstadoInicial() {
         etiquetaProgreso.setText(juego.obtenerProgreso());
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
+        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
+        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
         etiquetaMensaje.setText("Escribe una letra y presiona el boton.");
     }
 
@@ -115,6 +130,8 @@ public class VentanaAhorcado extends JFrame {
     private void actualizarEstadoPartida(String resultado, char letra) {
         etiquetaProgreso.setText(juego.obtenerProgreso());
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
+        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
+        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
 
         if (resultado.equals("correcta")) {
             etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
@@ -128,5 +145,24 @@ public class VentanaAhorcado extends JFrame {
     // Muestra mensajes simples de validacion para el usuario.
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    // Convierte una lista de letras en un texto sencillo para la interfaz.
+    private String convertirListaATexto(java.util.ArrayList<Character> letras) {
+        if (letras.isEmpty()) {
+            return "ninguna";
+        }
+
+        StringBuilder texto = new StringBuilder();
+
+        for (int indice = 0; indice < letras.size(); indice++) {
+            if (indice > 0) {
+                texto.append(", ");
+            }
+
+            texto.append(letras.get(indice));
+        }
+
+        return texto.toString();
     }
 }
