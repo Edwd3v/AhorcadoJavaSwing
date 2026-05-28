@@ -28,6 +28,12 @@ public class Main {
         System.out.println("Letras correctas: " + juego.getLetrasCorrectas());
         System.out.println("Letras incorrectas: " + juego.getLetrasIncorrectas());
 
+        // Probar las tres pistas disponibles.
+        System.out.println("Pista 1 - Categoria: " + juego.usarPistaCategoria());
+        System.out.println("Pista 2 - Letra revelada: " + juego.usarPistaLetra());
+        System.out.println("Progreso despues de pista 2: " + juego.obtenerProgreso());
+        System.out.println("Pista 3 - Descripcion: " + juego.usarPistaDescripcion());
+
         // Probar victoria descubriendo todas las letras de perro.
         juego.intentarLetra('p');
         juego.intentarLetra('e');

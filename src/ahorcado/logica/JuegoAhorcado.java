@@ -2,6 +2,7 @@ package ahorcado.logica;
 
 import ahorcado.modelo.Palabra;
 import java.util.ArrayList;
+import java.util.Random;
 
 // Controla el estado basico de una partida sin depender de Swing.
 public class JuegoAhorcado {
@@ -12,6 +13,7 @@ public class JuegoAhorcado {
     private ArrayList<Character> letrasUsadas;
     private ArrayList<Character> letrasCorrectas;
     private ArrayList<Character> letrasIncorrectas;
+    private Random random;
 
     // Inicia una partida con una palabra y cero errores.
     public JuegoAhorcado(Palabra palabraSecreta) {
@@ -21,6 +23,7 @@ public class JuegoAhorcado {
         this.letrasUsadas = new ArrayList<>();
         this.letrasCorrectas = new ArrayList<>();
         this.letrasIncorrectas = new ArrayList<>();
+        this.random = new Random();
     }
 
     public Palabra getPalabraSecreta() {
@@ -107,5 +110,44 @@ public class JuegoAhorcado {
     // Verifica si se alcanzo el limite de errores permitidos.
     public boolean haPerdido() {
         return erroresActuales >= erroresMaximos;
+    }
+
+    // Devuelve la categoria de la palabra como primera pista.
+    public String usarPistaCategoria() {
+        return palabraSecreta.getCategoria();
+    }
+
+    // Revela una letra aun oculta sin contar como error.
+    public char usarPistaLetra() {
+        ArrayList<Character> letrasOcultas = new ArrayList<>();
+        String texto = palabraSecreta.getTexto();
+
+        for (int posicion = 0; posicion < texto.length(); posicion++) {
+            char letraActual = texto.charAt(posicion);
+
+            if (!letrasCorrectas.contains(letraActual) && !letrasOcultas.contains(letraActual)) {
+                letrasOcultas.add(letraActual);
+            }
+        }
+
+        if (letrasOcultas.isEmpty()) {
+            return '\0';
+        }
+
+        int indiceAleatorio = random.nextInt(letrasOcultas.size());
+        char letraRevelada = letrasOcultas.get(indiceAleatorio);
+
+        letrasCorrectas.add(letraRevelada);
+
+        if (!letrasUsadas.contains(letraRevelada)) {
+            letrasUsadas.add(letraRevelada);
+        }
+
+        return letraRevelada;
+    }
+
+    // Devuelve la pista escrita asociada a la palabra.
+    public String usarPistaDescripcion() {
+        return palabraSecreta.getPista();
     }
 }

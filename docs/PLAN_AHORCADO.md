@@ -18,7 +18,7 @@
 | 4 | Implementar progreso oculto con guiones bajos. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Validar que el progreso muestre un guion por cada letra. |
 | 5 | Procesar intento de letra correcta, incorrecta y repetida. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Probar revelado, errores y repetidas sin duplicar. |
 | 6 | Detectar victoria y derrota. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Probar partida ganada y partida perdida con 7 errores. |
-| 7 | Agregar pistas: categoria, letra aleatoria oculta y pista escrita. | pendiente | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java` | Validar las tres pistas por consola. |
+| 7 | Agregar pistas: categoria, letra aleatoria oculta y pista escrita. | completada | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Validar las tres pistas por consola. |
 | 8 | Ampliar banco a minimo 5 categorias, sin llegar todavia a 200 palabras. | pendiente | `src/ahorcado/modelo/BancoPalabras.java` | Revisar categorias y probar seleccion. |
 | 9 | Crear interfaz Swing minima. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java`, `src/ahorcado/app/Main.java` | Abrir ventana basica. |
 | 10 | Conectar intento de letra en la interfaz. | pendiente | `src/ahorcado/ui/VentanaAhorcado.java` | Ver que el progreso cambie al ingresar letras. |
