@@ -1,14 +1,17 @@
 package ahorcado.app;
+
+import ahorcado.modelo.BancoPalabras;
 import ahorcado.modelo.Palabra;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // Creamos una palabra de pueba para probar la class Palabra
-        Palabra palabraPrueba = new Palabra("perro", "Animales", "Es una mascota comun");
+        // Prueba simple: pedir una palabra al banco.
+        BancoPalabras bancoPalabras = new BancoPalabras();
+        Palabra palabraPrueba = bancoPalabras.obtenerPalabraAleatoria();
 
-        // Mostrar los datos usando los getters
+        // Mostrar los datos usando los getters.
         System.out.println("Palabra: " + palabraPrueba.getTexto());
         System.out.println("Categoría: " + palabraPrueba.getCategoria());
         System.out.println("Pista: " + palabraPrueba.getPista());

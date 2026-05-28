@@ -1,19 +1,19 @@
 package ahorcado.modelo;
 
-// Atributos: datos que guarda cada palabra del juego
+// Representa una palabra con su categoria y su pista.
 public class Palabra {
     private String texto;
     private String categoria;
     private String pista;
 
-    // Constructor: crea una palabra con texto, categoría y pista
+    // Crea una palabra con los datos necesarios para el juego.
     public Palabra(String texto, String categoria, String pista){
         this.texto = texto;
         this.categoria = categoria;
         this.pista = pista;
     }
 
-    // Getters: métodos para consultar los datos de una Palabra
+    // Permiten consultar los datos sin modificar los atributos.
     public String getTexto(){
         return texto;
     }

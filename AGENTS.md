@@ -49,6 +49,8 @@ Desarrollar un proyecto academico en Java llamado "Juego del Ahorcado Interactiv
 - Mantener metodos pequenos y con una sola responsabilidad.
 - Evitar nombres genericos como `x`, `dato`, `cosa` o `obj`.
 - Preferir soluciones explicitas y faciles de leer.
+- Incluir comentarios cortos y claros que sirvan como guia al leer el codigo.
+- Evitar comentarios largos o innecesarios que repitan exactamente lo que hace una linea.
 
 ## Entregables del proyecto
 - Codigo fuente organizado y documentado.

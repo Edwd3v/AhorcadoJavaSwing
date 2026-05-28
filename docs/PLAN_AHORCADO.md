@@ -13,7 +13,7 @@
 | # | Tarea | Estado | Archivos modificados | Validacion |
 |---|-------|--------|----------------------|------------|
 | 1 | Encapsular `Palabra`: cambiar atributos a `private` y mantener getters. | completada | `src/ahorcado/modelo/Palabra.java`, `docs/PLAN_AHORCADO.md` | Compilar clases actuales y ejecutar `Main`. |
-| 2 | Agregar metodo de seleccion en `BancoPalabras` con pocas palabras iniciales. | pendiente | `src/ahorcado/modelo/BancoPalabras.java`, `src/ahorcado/app/Main.java` | Probar desde `Main` que devuelve una `Palabra`. |
+| 2 | Agregar metodo de seleccion en `BancoPalabras` con pocas palabras iniciales. | completada | `src/ahorcado/modelo/BancoPalabras.java`, `src/ahorcado/app/Main.java`, `docs/PLAN_AHORCADO.md` | Probar desde `Main` que devuelve una `Palabra`. |
 | 3 | Crear `JuegoAhorcado` basico sin Swing con palabra, maximo de 7 errores y getters. | pendiente | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java` | Instanciar desde `Main` y mostrar estado inicial. |
 | 4 | Implementar progreso oculto con guiones bajos. | pendiente | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java` | Validar que `perro` se vea como `_ _ _ _ _`. |
 | 5 | Procesar intento de letra correcta, incorrecta y repetida. | pendiente | `src/ahorcado/logica/JuegoAhorcado.java`, `src/ahorcado/app/Main.java` | Probar revelado, errores y repetidas sin duplicar. |
