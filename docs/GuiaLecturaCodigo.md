@@ -17,8 +17,8 @@ La separacion principal es esta:
 Para entender el proyecto, conviene leer los archivos en este orden:
 
 1. `src/ahorcado/app/Main.java`
-2. `src/ahorcado/modelo/Palabra.java`
-3. `src/ahorcado/modelo/BancoPalabras.java`
+2. `src/ahorcado/modelo/FichaPalabra.java`
+3. `src/ahorcado/modelo/BancoDePalabras.java`
 4. `src/ahorcado/logica/JuegoAhorcado.java`
 5. `src/ahorcado/ui/PanelAhorcado.java`
 6. `src/ahorcado/ui/VentanaAhorcado.java`
@@ -30,37 +30,37 @@ Ese orden permite empezar por el arranque del programa, luego entender los datos
 `Main` es el punto de entrada del programa. Su responsabilidad es iniciar los objetos principales y abrir la ventana.
 
 Flujo principal:
-- crea un `BancoPalabras`;
-- obtiene una `Palabra` aleatoria;
-- crea un `JuegoAhorcado` usando esa palabra;
+- crea un `BancoDePalabras`;
+- obtiene una `FichaPalabra` aleatoria;
+- crea un `JuegoAhorcado` usando esa ficha;
 - abre una `VentanaAhorcado` usando `SwingUtilities.invokeLater`.
 
 Esta clase no contiene reglas del juego. Solo prepara el inicio de la aplicacion.
 
-## 4. Palabra.java
+## 4. FichaPalabra.java
 
-`Palabra` representa una palabra del juego.
+`FichaPalabra` representa una ficha completa del banco de palabras.
 
 Atributos principales:
-- `texto`: la palabra que el jugador debe adivinar;
+- `palabra`: palabra que el jugador debe adivinar;
 - `categoria`: categoria usada como primera pista;
-- `pista`: descripcion escrita usada como tercera pista.
+- `pistaEscrita`: descripcion escrita usada como tercera pista.
 
 Metodos principales:
-- `getTexto()`;
+- `getPalabra()`;
 - `getCategoria()`;
-- `getPista()`.
+- `getPistaEscrita()`.
 
 Esta clase es un modelo simple. Solo guarda informacion y permite consultarla.
 
-## 5. BancoPalabras.java
+## 5. BancoDePalabras.java
 
-`BancoPalabras` almacena las palabras disponibles para jugar.
+`BancoDePalabras` almacena las palabras disponibles para jugar.
 
 Responsabilidades:
-- crear un `ArrayList<Palabra>`;
+- crear un `ArrayList<FichaPalabra>`;
 - cargar las palabras iniciales;
-- entregar una palabra aleatoria cuando inicia una partida.
+- entregar una ficha aleatoria cuando inicia una partida.
 
 El banco esta organizado por metodos privados de carga, por ejemplo:
 - `cargarAnimales()`;
@@ -72,22 +72,22 @@ El banco esta organizado por metodos privados de carga, por ejemplo:
 - `cargarProfesiones()`;
 - `cargarColores()`;
 - `cargarObjetos()`;
-- `cargarTransporte()`.
+- `cargarMediosDeTransporte()`.
 
 El metodo clave es:
 
 ```java
-public Palabra obtenerPalabraAleatoria()
+public FichaPalabra obtenerFichaAleatoria()
 ```
 
-Ese metodo selecciona una posicion aleatoria del arreglo y devuelve una palabra.
+Ese metodo selecciona una posicion aleatoria del arreglo y devuelve una ficha.
 
 ## 6. JuegoAhorcado.java
 
 `JuegoAhorcado` es la clase mas importante de la logica. Controla el estado de la partida y sus reglas.
 
 Atributos principales:
-- `palabraSecreta`: palabra que se debe adivinar;
+- `fichaSecreta`: ficha que contiene la palabra, la categoria y la pista escrita;
 - `erroresActuales`: errores cometidos por el jugador;
 - `erroresMaximos`: limite de errores, actualmente 7;
 - `letrasUsadas`: letras que ya se intentaron;
@@ -95,13 +95,13 @@ Atributos principales:
 - `letrasIncorrectas`: letras falladas.
 
 Metodos clave:
-- `obtenerProgreso()`: devuelve la palabra con guiones bajos y letras descubiertas;
-- `intentarLetra(char letra)`: procesa una letra y retorna `correcta`, `incorrecta` o `repetida`;
+- `obtenerProgresoPalabra()`: devuelve la palabra con guiones bajos y letras descubiertas;
+- `procesarLetra(char letra)`: procesa una letra y retorna `correcta`, `incorrecta` o `repetida`;
 - `haGanado()`: indica si ya se descubrio toda la palabra;
 - `haPerdido()`: indica si ya se llego al maximo de errores;
 - `usarPistaCategoria()`: devuelve la categoria;
-- `usarPistaLetra()`: revela una letra oculta;
-- `usarPistaDescripcion()`: devuelve la pista escrita.
+- `revelarLetraComoPista()`: revela una letra oculta;
+- `usarPistaEscrita()`: devuelve la pista escrita.
 
 Esta clase no depende de Swing. Por eso puede explicarse como el centro de las reglas del juego.
 
@@ -151,7 +151,7 @@ Metodos importantes:
 - `conectarEventos()`: conecta botones y campo de texto con acciones;
 - `procesarIntento()`: toma una letra y la envia a la logica;
 - `actualizarVistaJuego()`: refresca progreso, errores, letras y dibujo;
-- `revisarFinDePartida()`: detecta victoria o derrota;
+- `verificarFinDePartida()`: detecta victoria o derrota;
 - `bloquearControles()`: impide seguir jugando cuando termina la partida.
 
 Esta clase si depende de Swing, pero no contiene las reglas principales. La ventana consulta y actualiza la logica a traves de `JuegoAhorcado`.
@@ -162,11 +162,11 @@ Cuando el usuario escribe una letra y presiona el boton:
 
 1. `VentanaAhorcado.procesarIntento()` lee el texto del campo.
 2. Valida que sea una sola letra.
-3. Llama a `JuegoAhorcado.intentarLetra(letra)`.
+3. Llama a `JuegoAhorcado.procesarLetra(letra)`.
 4. `JuegoAhorcado` decide si la letra es correcta, incorrecta o repetida.
 5. `VentanaAhorcado.actualizarVistaJuego()` refresca la pantalla.
 6. `PanelAhorcado` se redibuja segun los errores actuales.
-7. `VentanaAhorcado.revisarFinDePartida()` valida si gano o perdio.
+7. `VentanaAhorcado.verificarFinDePartida()` valida si gano o perdio.
 
 Este flujo muestra claramente la separacion entre interfaz y logica.
 
@@ -175,8 +175,8 @@ Este flujo muestra claramente la separacion entre interfaz y logica.
 La ventana tiene tres botones de pistas:
 
 - `Pista categoria`: llama a `usarPistaCategoria()` y muestra la categoria.
-- `Pista letra`: llama a `usarPistaLetra()` y revela una letra oculta.
-- `Pista descripcion`: llama a `usarPistaDescripcion()` y muestra la pista escrita.
+- `Pista letra`: llama a `revelarLetraComoPista()` y revela una letra oculta.
+- `Pista descripcion`: llama a `usarPistaEscrita()` y muestra la pista escrita.
 
 Cada pista se desactiva despues de usarse para evitar repetirla.
 
@@ -186,7 +186,7 @@ El proyecto permite explicar estos conceptos:
 
 - Clases y objetos: cada archivo representa una clase con una responsabilidad clara.
 - Encapsulamiento: los atributos son privados y se acceden mediante metodos.
-- Composicion: `BancoPalabras` contiene objetos `Palabra`; `VentanaAhorcado` contiene un `PanelAhorcado`.
+- Composicion: `BancoDePalabras` contiene objetos `FichaPalabra`; `VentanaAhorcado` contiene un `PanelAhorcado`.
 - Separacion de responsabilidades: la logica esta en `JuegoAhorcado`, la interfaz en `VentanaAhorcado` y el dibujo en `PanelAhorcado`.
 - Metodos con responsabilidad unica: cada metodo realiza una tarea concreta.
 
@@ -195,8 +195,8 @@ El proyecto permite explicar estos conceptos:
 Una forma clara de explicar el proyecto es:
 
 1. `Main` inicia el juego.
-2. `BancoPalabras` entrega una palabra aleatoria.
-3. `Palabra` guarda texto, categoria y pista.
+2. `BancoDePalabras` entrega una ficha aleatoria.
+3. `FichaPalabra` guarda palabra, categoria y pista escrita.
 4. `JuegoAhorcado` controla reglas, errores, progreso y pistas.
 5. `VentanaAhorcado` muestra la interfaz y recibe acciones del usuario.
 6. `PanelAhorcado` dibuja el avance del ahorcado.

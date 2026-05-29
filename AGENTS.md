@@ -17,8 +17,8 @@ Desarrollar un proyecto academico en Java llamado "Juego del Ahorcado Interactiv
 5. Pulir la interfaz, preparar entregables y documentacion final.
 
 ## Estructura inicial sugerida
-- `Palabra`: representa una palabra, su categoria y su pista escrita.
-- `BancoPalabras`: almacena y entrega palabras del juego.
+- `FichaPalabra`: representa una ficha del banco con palabra, categoria y pista escrita.
+- `BancoDePalabras`: almacena las fichas y entrega una ficha aleatoria del juego.
 - `JuegoAhorcado`: controla el estado del juego, sus reglas y las pistas.
 
 ## Reglas tecnicas

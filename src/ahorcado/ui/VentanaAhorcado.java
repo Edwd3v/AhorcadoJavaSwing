@@ -133,8 +133,8 @@ public class VentanaAhorcado extends JFrame {
         botonIntentar.addActionListener(accionIntentar);
         campoLetra.addActionListener(accionIntentar);
         botonPistaCategoria.addActionListener(evento -> usarPistaCategoria());
-        botonPistaLetra.addActionListener(evento -> usarPistaLetra());
-        botonPistaDescripcion.addActionListener(evento -> usarPistaDescripcion());
+        botonPistaLetra.addActionListener(evento -> revelarLetraComoPista());
+        botonPistaDescripcion.addActionListener(evento -> usarPistaEscrita());
     }
 
     // Toma una letra de la interfaz y la envia a la logica del juego.
@@ -153,17 +153,17 @@ public class VentanaAhorcado extends JFrame {
         }
 
         char letra = textoIngresado.charAt(0);
-        String resultado = juego.intentarLetra(letra);
+        String resultado = juego.procesarLetra(letra);
 
-        actualizarEstadoPartida(resultado, letra);
-        revisarFinDePartida();
+        actualizarDespuesDeIntento(resultado, letra);
+        verificarFinDePartida();
 
         campoLetra.setText("");
         campoLetra.requestFocus();
     }
 
     // Refresca la ventana despues de cada intento realizado.
-    private void actualizarEstadoPartida(String resultado, char letra) {
+    private void actualizarDespuesDeIntento(String resultado, char letra) {
         actualizarVistaJuego();
         mostrarResultadoIntento(resultado, letra);
     }
@@ -180,12 +180,12 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Revela una letra oculta y refresca la interfaz.
-    private void usarPistaLetra() {
+    private void revelarLetraComoPista() {
         if (juegoTerminado) {
             return;
         }
 
-        char letraRevelada = juego.usarPistaLetra();
+        char letraRevelada = juego.revelarLetraComoPista();
 
         if (letraRevelada == '\0') {
             etiquetaMensaje.setText("No hay mas letras ocultas para revelar.");
@@ -195,16 +195,16 @@ public class VentanaAhorcado extends JFrame {
         }
 
         botonPistaLetra.setEnabled(false);
-        revisarFinDePartida();
+        verificarFinDePartida();
     }
 
     // Muestra la descripcion de la palabra y desactiva esa pista.
-    private void usarPistaDescripcion() {
+    private void usarPistaEscrita() {
         if (juegoTerminado) {
             return;
         }
 
-        String descripcion = juego.usarPistaDescripcion();
+        String descripcion = juego.usarPistaEscrita();
         etiquetaMensaje.setText("Pista: " + descripcion);
         botonPistaDescripcion.setEnabled(false);
     }
@@ -216,10 +216,10 @@ public class VentanaAhorcado extends JFrame {
 
     // Actualiza en bloque los elementos visuales ligados al estado del juego.
     private void actualizarVistaJuego() {
-        etiquetaProgreso.setText(juego.obtenerProgreso());
+        etiquetaProgreso.setText(juego.obtenerProgresoPalabra());
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
-        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirListaATexto(juego.getLetrasUsadas()));
-        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirListaATexto(juego.getLetrasIncorrectas()));
+        etiquetaLetrasUsadas.setText("Letras usadas: " + convertirLetrasATexto(juego.getLetrasUsadas()));
+        etiquetaLetrasIncorrectas.setText("Letras incorrectas: " + convertirLetrasATexto(juego.getLetrasIncorrectas()));
         panelAhorcado.setErroresActuales(juego.getErroresActuales());
     }
 
@@ -235,7 +235,7 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Verifica si la partida termino y bloquea la interfaz si corresponde.
-    private void revisarFinDePartida() {
+    private void verificarFinDePartida() {
         if (juego.haGanado()) {
             juegoTerminado = true;
             etiquetaMensaje.setText("Ganaste la partida.");
@@ -246,10 +246,10 @@ public class VentanaAhorcado extends JFrame {
 
         if (juego.haPerdido()) {
             juegoTerminado = true;
-            etiquetaProgreso.setText(separarLetras(juego.getPalabraSecreta().getTexto()));
+            etiquetaProgreso.setText(formatearPalabraConEspacios(juego.getFichaSecreta().getPalabra()));
             etiquetaMensaje.setText("Perdiste la partida.");
             bloquearControles();
-            mostrarMensaje("Perdiste. La palabra era: " + juego.getPalabraSecreta().getTexto());
+            mostrarMensaje("Perdiste. La palabra era: " + juego.getFichaSecreta().getPalabra());
         }
     }
 
@@ -263,7 +263,7 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Convierte una lista de letras en un texto sencillo para la interfaz.
-    private String convertirListaATexto(java.util.ArrayList<Character> letras) {
+    private String convertirLetrasATexto(java.util.ArrayList<Character> letras) {
         if (letras.isEmpty()) {
             return "ninguna";
         }
@@ -282,7 +282,7 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Separa las letras para mostrar la palabra completa con el mismo estilo del progreso.
-    private String separarLetras(String palabra) {
+    private String formatearPalabraConEspacios(String palabra) {
         StringBuilder texto = new StringBuilder();
 
         for (int indice = 0; indice < palabra.length(); indice++) {

@@ -11,8 +11,8 @@ El objetivo academico es aplicar Programacion Orientada a Objetos con una estruc
 con el fin de poner en practica los conceptos aprendidos en los modulos de la asignatura.
 
 ## Estructura principal
-- `src/ahorcado/modelo/Palabra.java`: representa una palabra, su categoria y su pista escrita.
-- `src/ahorcado/modelo/BancoPalabras.java`: almacena las palabras disponibles y entrega una palabra aleatoria.
+- `src/ahorcado/modelo/FichaPalabra.java`: representa una ficha del banco con palabra, categoria y pista escrita.
+- `src/ahorcado/modelo/BancoDePalabras.java`: almacena las palabras disponibles y entrega una ficha aleatoria.
 - `src/ahorcado/logica/JuegoAhorcado.java`: controla las reglas de la partida, los errores, el progreso y las pistas.
 - `src/ahorcado/ui/VentanaAhorcado.java`: construye la interfaz grafica y conecta la vista con la logica.
 - `src/ahorcado/ui/PanelAhorcado.java`: dibuja el avance grafico del ahorcado segun los errores.

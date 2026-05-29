@@ -3,23 +3,23 @@ classDiagram
         +main(String[] args) void
     }
 
-    class Palabra {
-        -String texto
+    class FichaPalabra {
+        -String palabra
         -String categoria
-        -String pista
-        +Palabra(String texto, String categoria, String pista)
-        +getTexto() String
+        -String pistaEscrita
+        +FichaPalabra(String palabra, String categoria, String pistaEscrita)
+        +getPalabra() String
         +getCategoria() String
-        +getPista() String
+        +getPistaEscrita() String
     }
 
-    class BancoPalabras {
-        -ArrayList~Palabra~ bancoDePalabras
+    class BancoDePalabras {
+        -ArrayList~FichaPalabra~ fichasPalabra
         -Random random
-        +BancoPalabras()
-        +obtenerPalabraAleatoria() Palabra
+        +BancoDePalabras()
+        +obtenerFichaAleatoria() FichaPalabra
         -cargarPalabrasIniciales() void
-        -agregarPalabra(String texto, String categoria, String pista) void
+        -agregarFicha(String palabra, String categoria, String pistaEscrita) void
         -cargarAnimales() void
         -cargarComidas() void
         -cargarPaises() void
@@ -29,32 +29,32 @@ classDiagram
         -cargarProfesiones() void
         -cargarColores() void
         -cargarObjetos() void
-        -cargarTransporte() void
+        -cargarMediosDeTransporte() void
     }
 
     class JuegoAhorcado {
         -int ERRORES_MAXIMOS
-        -Palabra palabraSecreta
+        -FichaPalabra fichaSecreta
         -int erroresActuales
         -int erroresMaximos
         -ArrayList~Character~ letrasUsadas
         -ArrayList~Character~ letrasCorrectas
         -ArrayList~Character~ letrasIncorrectas
         -Random random
-        +JuegoAhorcado(Palabra palabraSecreta)
-        +getPalabraSecreta() Palabra
+        +JuegoAhorcado(FichaPalabra fichaSecreta)
+        +getFichaSecreta() FichaPalabra
         +getErroresActuales() int
         +getErroresMaximos() int
         +getLetrasUsadas() ArrayList~Character~
         +getLetrasCorrectas() ArrayList~Character~
         +getLetrasIncorrectas() ArrayList~Character~
-        +obtenerProgreso() String
-        +intentarLetra(char letra) String
+        +obtenerProgresoPalabra() String
+        +procesarLetra(char letra) String
         +haGanado() boolean
         +haPerdido() boolean
         +usarPistaCategoria() String
-        +usarPistaLetra() char
-        +usarPistaDescripcion() String
+        +revelarLetraComoPista() char
+        +usarPistaEscrita() String
     }
 
     class VentanaAhorcado {
@@ -66,17 +66,17 @@ classDiagram
         -actualizarEstadoInicial() void
         -conectarEventos() void
         -procesarIntento() void
-        -actualizarEstadoPartida(String resultado, char letra) void
+        -actualizarDespuesDeIntento(String resultado, char letra) void
         -usarPistaCategoria() void
-        -usarPistaLetra() void
-        -usarPistaDescripcion() void
+        -revelarLetraComoPista() void
+        -usarPistaEscrita() void
         -mostrarMensaje(String mensaje) void
         -actualizarVistaJuego() void
         -mostrarResultadoIntento(String resultado, char letra) void
-        -revisarFinDePartida() void
+        -verificarFinDePartida() void
         -bloquearControles() void
-        -convertirListaATexto(ArrayList~Character~ letras) String
-        -separarLetras(String palabra) String
+        -convertirLetrasATexto(ArrayList~Character~ letras) String
+        -formatearPalabraConEspacios(String palabra) String
     }
 
     class PanelAhorcado {
@@ -86,10 +86,10 @@ classDiagram
         #paintComponent(Graphics graphics) void
     }
 
-    Main --> BancoPalabras : crea
+    Main --> BancoDePalabras : crea
     Main --> JuegoAhorcado : crea
     Main --> VentanaAhorcado : abre
-    BancoPalabras "1" o-- "200" Palabra : contiene
-    JuegoAhorcado --> Palabra : palabra secreta
+    BancoDePalabras "1" o-- "200" FichaPalabra : contiene
+    JuegoAhorcado --> FichaPalabra : ficha secreta
     VentanaAhorcado --> JuegoAhorcado : controla partida
     VentanaAhorcado *-- PanelAhorcado : muestra dibujo
