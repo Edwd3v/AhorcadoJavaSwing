@@ -24,7 +24,7 @@ classDiagram
         -Random random
         +BancoDePalabras()
         +obtenerFichaAleatoria() FichaPalabra
-        -cargarPalabrasIniciales() void
+        -cargarFichasPorCategoria() void
         -agregarFicha(String palabra, String categoria, String pistaEscrita) void
         -cargarAnimales() void
         -cargarComidas() void

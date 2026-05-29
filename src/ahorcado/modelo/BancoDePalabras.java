@@ -23,7 +23,7 @@ public class BancoDePalabras {
         fichasPalabra = new ArrayList<>();
         random = new Random();
 
-        cargarPalabrasIniciales();
+        cargarFichasPorCategoria();
     }    
 
 
@@ -34,7 +34,7 @@ public class BancoDePalabras {
     }
 
     // Carga un conjunto inicial de palabras con varias categorias.
-    private void cargarPalabrasIniciales() {
+    private void cargarFichasPorCategoria() {
         cargarAnimales();
         cargarComidas();
         cargarPaises();
