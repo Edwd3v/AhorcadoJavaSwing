@@ -42,7 +42,7 @@ Esta clase no contiene reglas del juego. Solo prepara el inicio de la aplicacion
 `FichaPalabra` representa una ficha completa del banco de palabras.
 
 Atributos principales:
-- `palabra`: palabra que el jugador debe adivinar;
+- `textoPalabra`: texto que el jugador debe adivinar;
 - `categoria`: categoria usada como primera pista;
 - `pistaEscrita`: descripcion escrita usada como tercera pista.
 
@@ -118,7 +118,7 @@ Responsabilidades:
 Metodo principal:
 
 ```java
-protected void paintComponent(Graphics graphics)
+protected void paintComponent(Graphics graficos)
 ```
 
 Ese metodo usa `Graphics2D` para dibujar lineas y ovalos. No usa imagenes externas.

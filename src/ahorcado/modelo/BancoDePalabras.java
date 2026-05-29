@@ -9,12 +9,12 @@ public class BancoDePalabras {
     // Cada FichaPalabra representa una palabra jugable completa:
     // palabra a adivinar, categoría y pista escrita.
     // Por eso el ArrayList no guarda String sueltos, sino objetos FichaPalabra.
-    private ArrayList<FichaPalabra> fichasPalabra;
+    private ArrayList<FichaPalabra> fichasDePalabras;
 
     // Generador de números aleatorios.
     // Se usa en obtenerFichaAleatoria() para elegir una posición al azar
-    // dentro del ArrayList fichasPalabra.
-    private Random random;
+    // dentro del ArrayList fichasDePalabras.
+    private Random generadorAleatorio;
 
     // Constructor del banco.
     // Al crear un BancoDePalabras, se inicializa la lista donde se guardan
@@ -22,16 +22,16 @@ public class BancoDePalabras {
     // La carga se organiza en métodos separados por categoría para que el código
     // sea más fácil de leer y explicar.
     public BancoDePalabras() {
-        fichasPalabra = new ArrayList<>();
-        random = new Random();
+        fichasDePalabras = new ArrayList<>();
+        generadorAleatorio = new Random();
 
         cargarFichasPorCategoria();
     }
 
     // Devuelve una ficha aleatoria para iniciar una partida.
     public FichaPalabra obtenerFichaAleatoria() {
-        int posicion = random.nextInt(fichasPalabra.size());
-        return fichasPalabra.get(posicion);
+        int posicion = generadorAleatorio.nextInt(fichasDePalabras.size());
+        return fichasDePalabras.get(posicion);
     }
 
     // Organiza la carga completa del banco por categorías.
@@ -53,8 +53,8 @@ public class BancoDePalabras {
     // Crea una FichaPalabra con texto, categoría y pista.
     // Luego la agrega a la lista principal del banco,
     // para que pueda ser seleccionada durante una partida.
-    private void agregarFicha(String palabra, String categoria, String pistaEscrita) {
-        fichasPalabra.add(new FichaPalabra(palabra, categoria, pistaEscrita));
+    private void agregarFicha(String textoPalabra, String categoria, String pistaEscrita) {
+        fichasDePalabras.add(new FichaPalabra(textoPalabra, categoria, pistaEscrita));
     }
 
     private void cargarAnimales() {

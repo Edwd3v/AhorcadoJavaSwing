@@ -153,9 +153,9 @@ public class VentanaAhorcado extends JFrame {
         }
 
         char letra = textoIngresado.charAt(0);
-        String resultado = juego.procesarLetra(letra);
+        String resultadoIntento = juego.procesarLetra(letra);
 
-        actualizarDespuesDeIntento(resultado, letra);
+        actualizarDespuesDeIntento(resultadoIntento, letra);
         verificarFinDePartida();
 
         campoLetra.setText("");
@@ -163,9 +163,9 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Refresca la ventana despues de cada intento realizado.
-    private void actualizarDespuesDeIntento(String resultado, char letra) {
+    private void actualizarDespuesDeIntento(String resultadoIntento, char letra) {
         actualizarVistaJuego();
-        mostrarResultadoIntento(resultado, letra);
+        mostrarResultadoIntento(resultadoIntento, letra);
     }
 
     // Muestra la categoria y desactiva esa pista para evitar repetirla.
@@ -198,14 +198,14 @@ public class VentanaAhorcado extends JFrame {
         verificarFinDePartida();
     }
 
-    // Muestra la descripcion de la palabra y desactiva esa pista.
+    // Muestra la pista escrita de la palabra y desactiva esa pista.
     private void usarPistaEscrita() {
         if (juegoTerminado) {
             return;
         }
 
-        String descripcion = juego.usarPistaEscrita();
-        etiquetaMensaje.setText("Pista: " + descripcion);
+        String pistaEscrita = juego.usarPistaEscrita();
+        etiquetaMensaje.setText("Pista: " + pistaEscrita);
         botonPistaDescripcion.setEnabled(false);
     }
 
@@ -224,10 +224,10 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Muestra un mensaje corto segun el tipo de intento realizado.
-    private void mostrarResultadoIntento(String resultado, char letra) {
-        if (resultado.equals("correcta")) {
+    private void mostrarResultadoIntento(String resultadoIntento, char letra) {
+        if (resultadoIntento.equals("correcta")) {
             etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
-        } else if (resultado.equals("incorrecta")) {
+        } else if (resultadoIntento.equals("incorrecta")) {
             etiquetaMensaje.setText("La letra " + letra + " no esta en la palabra.");
         } else {
             etiquetaMensaje.setText("La letra " + letra + " ya fue usada.");
@@ -282,15 +282,15 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Separa las letras para mostrar la palabra completa con el mismo estilo del progreso.
-    private String formatearPalabraConEspacios(String palabra) {
+    private String formatearPalabraConEspacios(String textoPalabra) {
         StringBuilder texto = new StringBuilder();
 
-        for (int indice = 0; indice < palabra.length(); indice++) {
+        for (int indice = 0; indice < textoPalabra.length(); indice++) {
             if (indice > 0) {
                 texto.append(" ");
             }
 
-            texto.append(palabra.charAt(indice));
+            texto.append(textoPalabra.charAt(indice));
         }
 
         return texto.toString();

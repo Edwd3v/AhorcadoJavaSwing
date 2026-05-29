@@ -15,7 +15,7 @@ public class JuegoAhorcado {
     private final ArrayList<Character> letrasUsadas;
     private final ArrayList<Character> letrasCorrectas;
     private final ArrayList<Character> letrasIncorrectas;
-    private final Random random;
+    private final Random generadorAleatorio;
 
     // Inicia una partida con una ficha y cero errores.
     public JuegoAhorcado(FichaPalabra fichaSecreta) {
@@ -25,7 +25,7 @@ public class JuegoAhorcado {
         this.letrasUsadas = new ArrayList<>();
         this.letrasCorrectas = new ArrayList<>();
         this.letrasIncorrectas = new ArrayList<>();
-        this.random = new Random();
+        this.generadorAleatorio = new Random();
     }
 
     public FichaPalabra getFichaSecreta() {
@@ -55,14 +55,14 @@ public class JuegoAhorcado {
     // Muestra la palabra oculta con un guion por cada letra.
     public String obtenerProgresoPalabra() {
         StringBuilder progreso = new StringBuilder();
-        String palabra = fichaSecreta.getPalabra();
+        String textoPalabra = fichaSecreta.getPalabra();
 
-        for (int posicion = 0; posicion < palabra.length(); posicion++) {
+        for (int posicion = 0; posicion < textoPalabra.length(); posicion++) {
             if (posicion > 0) {
                 progreso.append(" ");
             }
 
-            char letraActual = palabra.charAt(posicion);
+            char letraActual = textoPalabra.charAt(posicion);
 
             if (letrasCorrectas.contains(letraActual)) {
                 progreso.append(letraActual);
@@ -96,10 +96,10 @@ public class JuegoAhorcado {
 
     // Verifica si todas las letras de la palabra fueron descubiertas.
     public boolean haGanado() {
-        String palabra = fichaSecreta.getPalabra();
+        String textoPalabra = fichaSecreta.getPalabra();
 
-        for (int posicion = 0; posicion < palabra.length(); posicion++) {
-            char letraActual = palabra.charAt(posicion);
+        for (int posicion = 0; posicion < textoPalabra.length(); posicion++) {
+            char letraActual = textoPalabra.charAt(posicion);
 
             if (!letrasCorrectas.contains(letraActual)) {
                 return false;
@@ -122,10 +122,10 @@ public class JuegoAhorcado {
     // Revela una letra aun oculta sin contar como error.
     public char revelarLetraComoPista() {
         ArrayList<Character> letrasOcultas = new ArrayList<>();
-        String palabra = fichaSecreta.getPalabra();
+        String textoPalabra = fichaSecreta.getPalabra();
 
-        for (int posicion = 0; posicion < palabra.length(); posicion++) {
-            char letraActual = palabra.charAt(posicion);
+        for (int posicion = 0; posicion < textoPalabra.length(); posicion++) {
+            char letraActual = textoPalabra.charAt(posicion);
 
             if (!letrasCorrectas.contains(letraActual) && !letrasOcultas.contains(letraActual)) {
                 letrasOcultas.add(letraActual);
@@ -136,7 +136,7 @@ public class JuegoAhorcado {
             return '\0';
         }
 
-        int indiceAleatorio = random.nextInt(letrasOcultas.size());
+        int indiceAleatorio = generadorAleatorio.nextInt(letrasOcultas.size());
         char letraRevelada = letrasOcultas.get(indiceAleatorio);
 
         letrasCorrectas.add(letraRevelada);

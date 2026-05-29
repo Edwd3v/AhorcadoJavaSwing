@@ -24,10 +24,10 @@ public class PanelAhorcado extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
+    protected void paintComponent(Graphics graficos) {
+        super.paintComponent(graficos);
 
-        Graphics2D dibujo = (Graphics2D) graphics;
+        Graphics2D dibujo = (Graphics2D) graficos;
         dibujo.setStroke(new BasicStroke(3));
         dibujo.setColor(Color.BLACK);
 

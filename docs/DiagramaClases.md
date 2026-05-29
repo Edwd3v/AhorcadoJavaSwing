@@ -10,22 +10,22 @@ classDiagram
     }
 
     class FichaPalabra {
-        -String palabra
+        -String textoPalabra
         -String categoria
         -String pistaEscrita
-        +FichaPalabra(String palabra, String categoria, String pistaEscrita)
+        +FichaPalabra(String textoPalabra, String categoria, String pistaEscrita)
         +getPalabra() String
         +getCategoria() String
         +getPistaEscrita() String
     }
 
     class BancoDePalabras {
-        -ArrayList~FichaPalabra~ fichasPalabra
-        -Random random
+        -ArrayList~FichaPalabra~ fichasDePalabras
+        -Random generadorAleatorio
         +BancoDePalabras()
         +obtenerFichaAleatoria() FichaPalabra
         -cargarFichasPorCategoria() void
-        -agregarFicha(String palabra, String categoria, String pistaEscrita) void
+        -agregarFicha(String textoPalabra, String categoria, String pistaEscrita) void
         -cargarAnimales() void
         -cargarComidas() void
         -cargarPaises() void
@@ -46,7 +46,7 @@ classDiagram
         -ArrayList~Character~ letrasUsadas
         -ArrayList~Character~ letrasCorrectas
         -ArrayList~Character~ letrasIncorrectas
-        -Random random
+        -Random generadorAleatorio
         +JuegoAhorcado(FichaPalabra fichaSecreta)
         +getFichaSecreta() FichaPalabra
         +getErroresActuales() int
@@ -72,24 +72,24 @@ classDiagram
         -actualizarEstadoInicial() void
         -conectarEventos() void
         -procesarIntento() void
-        -actualizarDespuesDeIntento(String resultado, char letra) void
+        -actualizarDespuesDeIntento(String resultadoIntento, char letra) void
         -usarPistaCategoria() void
         -revelarLetraComoPista() void
         -usarPistaEscrita() void
         -mostrarMensaje(String mensaje) void
         -actualizarVistaJuego() void
-        -mostrarResultadoIntento(String resultado, char letra) void
+        -mostrarResultadoIntento(String resultadoIntento, char letra) void
         -verificarFinDePartida() void
         -bloquearControles() void
         -convertirLetrasATexto(ArrayList~Character~ letras) String
-        -formatearPalabraConEspacios(String palabra) String
+        -formatearPalabraConEspacios(String textoPalabra) String
     }
 
     class PanelAhorcado {
         -int erroresActuales
         +PanelAhorcado()
         +setErroresActuales(int erroresActuales) void
-        #paintComponent(Graphics graphics) void
+        #paintComponent(Graphics graficos) void
     }
 
     Main --> BancoDePalabras : crea

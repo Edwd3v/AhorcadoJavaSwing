@@ -2,20 +2,20 @@ package ahorcado.modelo;
 
 // Representa una ficha con palabra, categoria y pista escrita.
 public class FichaPalabra {
-    private String palabra;
+    private String textoPalabra;
     private String categoria;
     private String pistaEscrita;
 
     // Crea una ficha lista para usarse en el juego.
-    public FichaPalabra(String palabra, String categoria, String pistaEscrita){
-        this.palabra = palabra;
+    public FichaPalabra(String textoPalabra, String categoria, String pistaEscrita){
+        this.textoPalabra = textoPalabra;
         this.categoria = categoria;
         this.pistaEscrita = pistaEscrita;
     }
 
     // Permiten consultar los datos sin modificar los atributos.
     public String getPalabra(){
-        return palabra;
+        return textoPalabra;
     }
 
     public String getCategoria() {
