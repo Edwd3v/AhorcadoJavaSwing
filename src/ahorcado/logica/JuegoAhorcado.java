@@ -4,17 +4,34 @@ import ahorcado.modelo.FichaPalabra;
 import java.util.ArrayList;
 import java.util.Random;
 
-// Controla el estado basico de una partida sin depender de Swing.
+// Controla el estado y las reglas de una partida.
+// No depende de Swing, por eso puede probarse
+// sin abrir la interfaz grafica.
 public class JuegoAhorcado {
 
+    // Limite fijo de errores permitido por partida.
     private static final int ERRORES_MAXIMOS = 7;
 
+    // Ficha elegida para la partida actual.
+    // Contiene la palabra, categoria y pista escrita.
     private final FichaPalabra fichaSecreta;
+
+    // Cantidad de letras incorrectas intentadas.
     private int erroresActuales;
+
+    // Limite de errores usado por esta partida.
     private final int erroresMaximos;
+
+    // Letras que el jugador ya intento.
     private final ArrayList<Character> letrasUsadas;
+
+    // Letras encontradas dentro de la palabra.
     private final ArrayList<Character> letrasCorrectas;
+
+    // Letras que no aparecen en la palabra.
     private final ArrayList<Character> letrasIncorrectas;
+
+    // Generador usado para revelar una letra oculta al azar.
     private final Random generadorAleatorio;
 
     // Inicia una partida con una ficha y cero errores.
@@ -28,31 +45,39 @@ public class JuegoAhorcado {
         this.generadorAleatorio = new Random();
     }
 
+    // Devuelve la ficha usada como palabra secreta.
     public FichaPalabra getFichaSecreta() {
         return fichaSecreta;
     }
 
+    // Devuelve la cantidad actual de errores.
     public int getErroresActuales() {
         return erroresActuales;
     }
 
+    // Devuelve el maximo de errores permitido.
     public int getErroresMaximos() {
         return erroresMaximos;
     }
 
+    // Devuelve las letras que ya fueron intentadas.
     public ArrayList<Character> getLetrasUsadas() {
         return letrasUsadas;
     }
 
+    // Devuelve las letras acertadas hasta el momento.
     public ArrayList<Character> getLetrasCorrectas() {
         return letrasCorrectas;
     }
 
+    // Devuelve las letras falladas hasta el momento.
     public ArrayList<Character> getLetrasIncorrectas() {
         return letrasIncorrectas;
     }
 
-    // Muestra la palabra oculta con un guion por cada letra.
+    // Muestra el avance de la palabra.
+    // Usa guiones bajos para letras no descubiertas
+    // y letras reales para aciertos.
     public String obtenerProgresoPalabra() {
         StringBuilder progreso = new StringBuilder();
         String textoPalabra = fichaSecreta.getPalabra();
@@ -74,7 +99,9 @@ public class JuegoAhorcado {
         return progreso.toString();
     }
 
-    // Procesa una letra y devuelve el resultado del intento.
+    // Procesa una letra escrita por el jugador.
+    // Devuelve correcta, incorrecta o repetida
+    // para que la interfaz muestre el mensaje adecuado.
     public String procesarLetra(char letra) {
         char letraNormalizada = Character.toLowerCase(letra);
 
@@ -94,7 +121,8 @@ public class JuegoAhorcado {
         return "incorrecta";
     }
 
-    // Verifica si todas las letras de la palabra fueron descubiertas.
+    // Verifica si todas las letras de la palabra
+    // ya se encuentran dentro de letrasCorrectas.
     public boolean haGanado() {
         String textoPalabra = fichaSecreta.getPalabra();
 
@@ -120,6 +148,7 @@ public class JuegoAhorcado {
     }
 
     // Revela una letra aun oculta sin contar como error.
+    // Si no quedan letras ocultas, devuelve el caracter nulo.
     public char revelarLetraComoPista() {
         ArrayList<Character> letrasOcultas = new ArrayList<>();
         String textoPalabra = fichaSecreta.getPalabra();

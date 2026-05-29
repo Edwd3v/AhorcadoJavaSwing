@@ -16,23 +16,47 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-// Ventana inicial del juego, separada de la logica principal.
+// Ventana principal del juego.
+// Muestra la partida y envia las acciones del usuario
+// a la clase JuegoAhorcado.
 public class VentanaAhorcado extends JFrame {
 
+    // Objeto que contiene las reglas y el estado de la partida.
     private JuegoAhorcado juego;
+
+    // Etiqueta que muestra guiones y letras descubiertas.
     private JLabel etiquetaProgreso;
+
+    // Etiqueta que muestra errores actuales y maximos.
     private JLabel etiquetaErrores;
+
+    // Etiqueta que muestra todas las letras intentadas.
     private JLabel etiquetaLetrasUsadas;
+
+    // Etiqueta que muestra solo letras incorrectas.
     private JLabel etiquetaLetrasIncorrectas;
+
+    // Etiqueta para mensajes breves al jugador.
     private JLabel etiquetaMensaje;
+
+    // Panel donde se dibuja el avance del ahorcado.
     private PanelAhorcado panelAhorcado;
+
+    // Campo donde el jugador escribe una letra.
     private JTextField campoLetra;
+
+    // Boton para enviar la letra escrita.
     private JButton botonIntentar;
+
+    // Botones para usar las tres pistas disponibles.
     private JButton botonPistaCategoria;
     private JButton botonPistaLetra;
     private JButton botonPistaDescripcion;
+
+    // Indica si ya no deben aceptarse mas acciones.
     private boolean juegoTerminado;
 
+    // Recibe una partida ya creada y prepara la ventana.
     public VentanaAhorcado(JuegoAhorcado juego) {
         this.juego = juego;
 
@@ -46,7 +70,8 @@ public class VentanaAhorcado extends JFrame {
         actualizarEstadoInicial();
     }
 
-    // Construye una interfaz simple para la siguiente fase.
+    // Construye y ubica los componentes de la ventana.
+    // No contiene reglas del juego; solo prepara la vista.
     private void crearComponentes() {
         setLayout(new BorderLayout(12, 12));
 
@@ -127,7 +152,9 @@ public class VentanaAhorcado extends JFrame {
         etiquetaMensaje.setText("Escribe una letra y presiona el boton.");
     }
 
-    // Conecta el boton y la tecla Enter con el intento de letra.
+    // Conecta botones y campo de texto con sus acciones.
+    // Las acciones llaman metodos de esta ventana,
+    // y la ventana consulta la logica del juego.
     private void conectarEventos() {
         ActionListener accionIntentar = evento -> procesarIntento();
         botonIntentar.addActionListener(accionIntentar);
@@ -137,7 +164,8 @@ public class VentanaAhorcado extends JFrame {
         botonPistaDescripcion.addActionListener(evento -> usarPistaEscrita());
     }
 
-    // Toma una letra de la interfaz y la envia a la logica del juego.
+    // Toma una letra de la interfaz y la envia a la logica.
+    // Valida que el usuario escriba exactamente una letra.
     private void procesarIntento() {
         if (juegoTerminado) {
             return;
@@ -162,13 +190,15 @@ public class VentanaAhorcado extends JFrame {
         campoLetra.requestFocus();
     }
 
-    // Refresca la ventana despues de cada intento realizado.
+    // Refresca la ventana despues de cada intento.
+    // Luego muestra un mensaje segun el resultado recibido.
     private void actualizarDespuesDeIntento(String resultadoIntento, char letra) {
         actualizarVistaJuego();
         mostrarResultadoIntento(resultadoIntento, letra);
     }
 
-    // Muestra la categoria y desactiva esa pista para evitar repetirla.
+    // Muestra la categoria y desactiva esa pista.
+    // Asi el jugador no puede usarla mas de una vez.
     private void usarPistaCategoria() {
         if (juegoTerminado) {
             return;
@@ -180,6 +210,7 @@ public class VentanaAhorcado extends JFrame {
     }
 
     // Revela una letra oculta y refresca la interfaz.
+    // Si no quedan letras ocultas, muestra un aviso.
     private void revelarLetraComoPista() {
         if (juegoTerminado) {
             return;
@@ -198,7 +229,8 @@ public class VentanaAhorcado extends JFrame {
         verificarFinDePartida();
     }
 
-    // Muestra la pista escrita de la palabra y desactiva esa pista.
+    // Muestra la pista escrita de la palabra.
+    // Luego desactiva el boton de esa pista.
     private void usarPistaEscrita() {
         if (juegoTerminado) {
             return;
@@ -209,12 +241,13 @@ public class VentanaAhorcado extends JFrame {
         botonPistaDescripcion.setEnabled(false);
     }
 
-    // Muestra mensajes simples de validacion para el usuario.
+    // Muestra mensajes emergentes simples al usuario.
     private void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje);
     }
 
-    // Actualiza en bloque los elementos visuales ligados al estado del juego.
+    // Actualiza en bloque los datos visibles de la partida.
+    // Lee el estado desde JuegoAhorcado y lo muestra en Swing.
     private void actualizarVistaJuego() {
         etiquetaProgreso.setText(juego.obtenerProgresoPalabra());
         etiquetaErrores.setText("Errores: " + juego.getErroresActuales() + "/" + juego.getErroresMaximos());
@@ -223,7 +256,8 @@ public class VentanaAhorcado extends JFrame {
         panelAhorcado.setErroresActuales(juego.getErroresActuales());
     }
 
-    // Muestra un mensaje corto segun el tipo de intento realizado.
+    // Muestra un mensaje corto segun el intento.
+    // Usa el resultado devuelto por JuegoAhorcado.
     private void mostrarResultadoIntento(String resultadoIntento, char letra) {
         if (resultadoIntento.equals("correcta")) {
             etiquetaMensaje.setText("La letra " + letra + " si esta en la palabra.");
@@ -234,7 +268,9 @@ public class VentanaAhorcado extends JFrame {
         }
     }
 
-    // Verifica si la partida termino y bloquea la interfaz si corresponde.
+    // Verifica si la partida termino.
+    // Si hay victoria o derrota, muestra mensaje
+    // y bloquea los controles.
     private void verificarFinDePartida() {
         if (juego.haGanado()) {
             juegoTerminado = true;

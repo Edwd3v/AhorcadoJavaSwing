@@ -3,6 +3,9 @@ package ahorcado.modelo;
 import java.util.ArrayList;
 import java.util.Random;
 
+// Administra las fichas disponibles para el juego.
+// Mantiene el banco cargado en memoria y entrega
+// una ficha aleatoria al iniciar cada partida.
 public class BancoDePalabras {
 
     // Lista principal del banco.
@@ -29,6 +32,7 @@ public class BancoDePalabras {
     }
 
     // Devuelve una ficha aleatoria para iniciar una partida.
+    // La ficha incluye palabra, categoria y pista escrita.
     public FichaPalabra obtenerFichaAleatoria() {
         int posicion = generadorAleatorio.nextInt(fichasDePalabras.size());
         return fichasDePalabras.get(posicion);
@@ -57,6 +61,7 @@ public class BancoDePalabras {
         fichasDePalabras.add(new FichaPalabra(textoPalabra, categoria, pistaEscrita));
     }
 
+    // Carga fichas de la categoria Animales.
     private void cargarAnimales() {
         agregarFicha("perro", "Animales", "Es una mascota comun");
         agregarFicha("gato", "Animales", "Le gusta maullar");
@@ -80,6 +85,7 @@ public class BancoDePalabras {
         agregarFicha("raton", "Animales", "Es pequeno y le gusta el queso");
     }
 
+    // Carga fichas de la categoria Comidas.
     private void cargarComidas() {
         agregarFicha("pizza", "Comidas", "Tiene queso y salsa");
         agregarFicha("sopa", "Comidas", "Se sirve caliente");
@@ -103,6 +109,7 @@ public class BancoDePalabras {
         agregarFicha("yogur", "Comidas", "Es un lacteo cremoso");
     }
 
+    // Carga fichas de la categoria Paises.
     private void cargarPaises() {
         agregarFicha("colombia", "Paises", "Esta en sudamerica");
         agregarFicha("mexico", "Paises", "Es famoso por sus tacos");

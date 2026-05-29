@@ -7,22 +7,29 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-// Dibuja el avance del ahorcado segun la cantidad de errores.
+// Panel encargado de dibujar el ahorcado.
+// Recibe la cantidad de errores y pinta una parte
+// nueva del dibujo segun el avance de la partida.
 public class PanelAhorcado extends JPanel {
 
+    // Errores actuales que determinan que partes se dibujan.
     private int erroresActuales;
 
+    // Configura el tamaño y el fondo del panel de dibujo.
     public PanelAhorcado() {
         setPreferredSize(new Dimension(200, 300));
         setMinimumSize(new Dimension(200, 300));
         setBackground(Color.WHITE);
     }
 
+    // Actualiza los errores y solicita redibujar el panel.
     public void setErroresActuales(int erroresActuales) {
         this.erroresActuales = erroresActuales;
         repaint();
     }
 
+    // Dibuja la estructura y las partes del cuerpo.
+    // Swing llama este metodo cada vez que el panel debe repintarse.
     @Override
     protected void paintComponent(Graphics graficos) {
         super.paintComponent(graficos);
