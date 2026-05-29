@@ -133,6 +133,7 @@ public class BancoDePalabras {
         agregarFicha("egipto", "Paises", "Tiene piramides antiguas");
     }
 
+    // Carga fichas de la categoria Deportes.
     private void cargarDeportes() {
         agregarFicha("futbol", "Deportes", "Se juega con un balon");
         agregarFicha("tenis", "Deportes", "Se juega con raqueta");
@@ -156,6 +157,7 @@ public class BancoDePalabras {
         agregarFicha("handbol", "Deportes", "Se juega con las manos");
     }
 
+    // Carga fichas de la categoria Instrumentos.
     private void cargarInstrumentos() {
         agregarFicha("guitarra", "Instrumentos", "Tiene cuerdas");
         agregarFicha("piano", "Instrumentos", "Tiene teclas");
@@ -179,6 +181,7 @@ public class BancoDePalabras {
         agregarFicha("mandolina", "Instrumentos", "Se parece a una guitarra pequena");
     }
 
+    // Carga fichas de la categoria Frutas.
     private void cargarFrutas() {
         agregarFicha("manzana", "Frutas", "Puede ser roja o verde");
         agregarFicha("pera", "Frutas", "Es dulce y jugosa");
@@ -202,6 +205,7 @@ public class BancoDePalabras {
         agregarFicha("maracuya", "Frutas", "Es aromatica y acida");
     }
 
+    // Carga fichas de la categoria Profesiones.
     private void cargarProfesiones() {
         agregarFicha("medico", "Profesiones", "Atiende pacientes");
         agregarFicha("profesor", "Profesiones", "Enseña en clase");
@@ -225,6 +229,7 @@ public class BancoDePalabras {
         agregarFicha("programador", "Profesiones", "Escribe codigo");
     }
 
+    // Carga fichas de la categoria Colores.
     private void cargarColores() {
         agregarFicha("rojo", "Colores", "Se parece al color de la sangre");
         agregarFicha("azul", "Colores", "Se parece al cielo");
@@ -248,6 +253,7 @@ public class BancoDePalabras {
         agregarFicha("lila", "Colores", "Es un tono suave de violeta");
     }
 
+    // Carga fichas de la categoria Objetos.
     private void cargarObjetos() {
         agregarFicha("mesa", "Objetos", "Tiene patas y superficie");
         agregarFicha("silla", "Objetos", "Sirve para sentarse");
@@ -271,6 +277,7 @@ public class BancoDePalabras {
         agregarFicha("cepillo", "Objetos", "Sirve para peinar o limpiar");
     }
 
+    // Carga fichas de la categoria Medios de transporte.
     private void cargarMediosDeTransporte() {
         agregarFicha("carro", "Transporte", "Tiene cuatro ruedas");
         agregarFicha("moto", "Transporte", "Tiene dos ruedas");
