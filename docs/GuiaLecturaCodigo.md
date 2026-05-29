@@ -59,7 +59,7 @@ Esta clase es un modelo simple. Solo guarda informacion y permite consultarla.
 
 Responsabilidades:
 - crear un `ArrayList<FichaPalabra>`;
-- cargar las palabras iniciales;
+- cargar las fichas por categoria, por ejemplo: animales, comidas y paises;
 - entregar una ficha aleatoria cuando inicia una partida.
 
 El banco esta organizado por metodos privados de carga, por ejemplo:

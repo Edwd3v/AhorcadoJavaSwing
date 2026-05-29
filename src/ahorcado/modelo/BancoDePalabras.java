@@ -17,15 +17,16 @@ public class BancoDePalabras {
     private Random random;
 
     // Constructor del banco.
-    // Al crear un BancoDePalabras, se inicializa la lista donde se guardarán
-    // las fichas, se prepara el generador aleatorio y se cargan las palabras iniciales.
+    // Al crear un BancoDePalabras, se inicializa la lista donde se guardan
+    // las fichas, se prepara el generador aleatorio y se carga el banco completo.
+    // La carga se organiza en métodos separados por categoría para que el código
+    // sea más fácil de leer y explicar.
     public BancoDePalabras() {
         fichasPalabra = new ArrayList<>();
         random = new Random();
 
         cargarFichasPorCategoria();
-    }    
-
+    }
 
     // Devuelve una ficha aleatoria para iniciar una partida.
     public FichaPalabra obtenerFichaAleatoria() {
@@ -33,7 +34,9 @@ public class BancoDePalabras {
         return fichasPalabra.get(posicion);
     }
 
-    // Carga un conjunto inicial de palabras con varias categorias.
+    // Organiza la carga completa del banco por categorías.
+    // Cada método llamado aquí agrega un grupo de fichas relacionadas,
+    // como animales, comidas, países, deportes, entre otros.
     private void cargarFichasPorCategoria() {
         cargarAnimales();
         cargarComidas();
@@ -47,7 +50,9 @@ public class BancoDePalabras {
         cargarMediosDeTransporte();
     }
 
-    // Agrega una ficha al banco con palabra, categoria y pista escrita.
+    // Crea una FichaPalabra con texto, categoría y pista.
+    // Luego la agrega a la lista principal del banco,
+    // para que pueda ser seleccionada durante una partida.
     private void agregarFicha(String palabra, String categoria, String pistaEscrita) {
         fichasPalabra.add(new FichaPalabra(palabra, categoria, pistaEscrita));
     }
